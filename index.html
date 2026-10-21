@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hores d’escola: Espanya, Europa i el món</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F9FC; --grid:#D6E4F0; --ink:#1D3C8F; --red:#C21F3A; --pencil:#6B7079;
+  --text:#22262E; --muted:#565D69; --rule:#C9D6E3; --track:#E6EEF6; --bar:#9DB3CB;
+  --empty:#E3EBF3; --surface:#FFFFFF; --tape:rgba(232,214,140,.75); --photo-border:#FFFFFF;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#17241F; --grid:#22332C; --ink:#9CC3F2; --red:#F08A98; --pencil:#E7D58A;
+    --text:#E8EEE9; --muted:#AAB8B0; --rule:#33473F; --track:#21322B; --bar:#5E7A6E;
+    --empty:#24362E; --surface:#1C2B25; --tape:rgba(231,213,138,.35); --photo-border:#E8EEE9;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#17241F; --grid:#22332C; --ink:#9CC3F2; --red:#F08A98; --pencil:#E7D58A;
+  --text:#E8EEE9; --muted:#AAB8B0; --rule:#33473F; --track:#21322B; --bar:#5E7A6E;
+  --empty:#24362E; --surface:#1C2B25; --tape:rgba(231,213,138,.35); --photo-border:#E8EEE9;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);-webkit-text-size-adjust:100%}
+body{
+  margin:0; background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px; color:var(--text);
+  font-family:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-size:1.0625rem; line-height:1.6;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+
+/* Sticky chapter bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:2px solid var(--text)}
+.top-in{max-width:1060px;margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;gap:1.25rem;height:52px}
+.brand{font-family:"Caveat","Comic Sans MS",cursive;font-size:1.6rem;font-weight:700;color:var(--red);white-space:nowrap;text-decoration:none}
+.chapters{display:flex;gap:.25rem;overflow-x:auto;scrollbar-width:none;flex:1}
+.chapters::-webkit-scrollbar{display:none}
+.chapters a{white-space:nowrap;text-decoration:none;color:var(--muted);font-weight:700;font-size:.95rem;padding:.35rem .6rem;border-radius:3px}
+.chapters a:hover{color:var(--text)}
+.chapters a[aria-current="true"]{color:var(--paper);background:var(--text)}
+
+.page{position:relative;max-width:1060px;margin:0 auto;padding:0 1.25rem 4rem}
+.page::before{content:"";position:absolute;top:0;bottom:0;left:calc(1.25rem + 220px);width:2px;background:var(--red);opacity:.55}
+section,header.hero,footer{display:grid;grid-template-columns:220px minmax(0,1fr);column-gap:2.5rem;padding:4.5rem 0 1rem}
+.margin{font-family:"Caveat","Comic Sans MS",cursive;font-size:1.45rem;line-height:1.2;color:var(--red);text-align:right;padding:.4rem 1rem 0 0}
+.body{max-width:68ch;min-width:0}
+.wide{max-width:none}
+h1,h2,h3{line-height:1.15;margin:0 0 1rem;font-weight:700;letter-spacing:-.01em}
+h1{font-size:clamp(2rem,5vw,3.3rem);max-width:20ch;color:var(--ink)}
+h2{font-size:clamp(1.55rem,3.2vw,2.15rem);color:var(--ink)}
+h3{font-size:1.15rem}
+p{margin:0 0 1rem}
+a{color:var(--ink);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:2px}
+.lede{font-size:1.2rem;color:var(--muted);max-width:56ch}
+.idea{font-size:1.3rem;line-height:1.45;max-width:46ch;margin-bottom:1.5rem}
+.small{font-size:.9rem;color:var(--muted)}
+
+/* Taped photos */
+.photo{position:relative;margin:.5rem 0 2.25rem;max-width:520px;background:var(--photo-border);padding:10px 10px 0;box-shadow:0 1px 3px rgba(0,0,0,.18),0 8px 20px rgba(0,0,0,.08);transform:rotate(-1.2deg)}
+.photo.r{transform:rotate(1deg)}
+.photo img{display:block;width:100%;height:auto;filter:sepia(.18) contrast(1.02)}
+.photo figcaption{font-family:"Caveat","Comic Sans MS",cursive;font-size:1.25rem;color:#22262E;padding:.35rem .2rem .55rem;line-height:1.2}
+.photo::before,.photo::after{content:"";position:absolute;width:86px;height:24px;background:var(--tape);top:-11px}
+.photo::before{left:18px;transform:rotate(-6deg)}
+.photo::after{right:18px;transform:rotate(5deg)}
+.globe{display:block;width:min(260px,60vw);height:auto;border-radius:50%;margin:0 0 1.75rem;box-shadow:0 0 0 6px var(--paper),0 0 0 8px var(--rule)}
+.credit{font-size:.78rem;color:var(--muted);margin-top:-1.6rem;margin-bottom:2rem}
+
+/* Hero grid */
+.hourgrid{--cols:45;display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:2px;margin:2rem 0 1rem;max-width:720px}
+.hourgrid span{aspect-ratio:1/1;background:var(--empty);border-radius:1px;transition:background-color .2s}
+.hourgrid span.p{background:var(--ink)}.hourgrid span.e{background:var(--red)}.hourgrid span.q{background:var(--pencil)}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem 1.75rem;margin:0 0 .5rem;padding:0;list-style:none;font-size:.98rem}
+.legend li{display:flex;align-items:center;gap:.5rem}
+.sw{width:14px;height:14px;border-radius:2px;flex:none;display:inline-block}
+.sw.p{background:var(--ink)}.sw.e{background:var(--red)}.sw.q{background:var(--pencil)}
+
+/* Year figures */
+.years{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:1.5rem 0 2rem;border-top:2px solid var(--text)}
+.years div{padding:1rem 1rem 1rem 0;border-right:1px solid var(--rule)}
+.years div:last-child{border-right:0}
+.years div+div{padding-left:1rem}
+.years .n{display:block;font-size:2.1rem;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.years .p .n{color:var(--ink)}.years .e .n{color:var(--red)}.years .q .n{color:var(--muted)}
+.years .t{display:block;font-weight:700;margin-bottom:.25rem}
+
+/* Calculator */
+.calc{background:var(--surface);border:2px solid var(--text);padding:1.4rem 1.4rem 1.2rem;margin:1rem 0 0}
+.calc label{font-weight:700;display:block;margin-bottom:.5rem}
+.calc select{font:inherit;font-size:1.05rem;padding:.5rem .7rem;border:2px solid var(--text);background:var(--paper);color:var(--text);border-radius:3px;max-width:100%}
+.calc output{display:block;font-size:1.25rem;margin:1rem 0 .9rem;min-height:3.2em}
+.calc output b{color:var(--ink)}
+.track10{display:flex;gap:3px;height:22px}
+.track10 i{flex:var(--w) 1 0;background:var(--empty)}
+.track10 i.on.p{background:var(--ink)}.track10 i.on.e{background:var(--red)}.track10 i.on.q{background:var(--pencil)}
+.track10 i.now{outline:2px solid var(--text);outline-offset:1px}
+.tlabels{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-top:.35rem}
+
+/* Tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:0;border:2px solid var(--text);border-radius:4px;overflow:hidden;margin:.5rem 0 1.25rem;width:max-content;max-width:100%}
+.tabs button{font:inherit;font-weight:700;font-size:.95rem;padding:.5rem .9rem;border:0;background:transparent;color:var(--text);cursor:pointer}
+.tabs button+button{border-left:1px solid var(--text)}
+.tabs button[aria-selected="true"]{background:var(--text);color:var(--paper)}
+.panel{min-height:200px}
+.panel .q{font-weight:700;font-size:1.1rem;margin:0 0 .25rem}
+.panel .a{color:var(--muted);margin:0 0 1rem;max-width:62ch}
+
+/* Bar chart */
+.chartwrap{overflow-x:auto}
+.chart{min-width:520px;max-width:760px;margin:0;padding:0;list-style:none}
+.chart li{display:grid;grid-template-columns:11.5rem minmax(0,1fr) 4.2rem;align-items:center;gap:.6rem;padding:.16rem 0}
+.chart .c{font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chart .tr{position:relative;height:16px;background:var(--track)}
+.chart .b{position:absolute;left:0;top:0;bottom:0;background:var(--bar);transition:width .5s ease}
+.chart .avg{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--red)}
+.chart .v{font-variant-numeric:tabular-nums;text-align:right;font-size:.95rem}
+.chart li.es .c,.chart li.es .v{font-weight:700;color:var(--ink)}
+.chart li.es .b{background:var(--ink)}
+.chartnote{display:flex;align-items:center;gap:.5rem;font-size:.92rem;color:var(--muted);margin:.8rem 0 0}
+.chartnote i{display:inline-block;width:2px;height:16px;background:var(--red)}
+
+/* SVG charts */
+.svgwrap{overflow-x:auto;max-width:780px}
+.svgwrap svg{display:block;width:100%;min-width:520px;height:auto}
+svg text{font-family:"Atkinson Hyperlegible",system-ui,sans-serif;fill:var(--text)}
+svg .ax{stroke:var(--rule);stroke-width:1}
+svg .tick{font-size:12px;fill:var(--muted)}
+svg .lab{font-size:13px}
+svg .lab.es{font-weight:700;fill:var(--ink)}
+svg .ln{fill:none;stroke:var(--bar);stroke-width:2}
+svg .ln.es{stroke:var(--ink);stroke-width:3.5}
+svg .dot{fill:var(--bar)}
+svg .dot.es{fill:var(--ink)}
+svg .pf{fill:var(--ink);stroke:var(--ink);stroke-width:2}
+svg .po{fill:var(--paper);stroke:var(--ink);stroke-width:2}
+svg .sf{fill:var(--red);stroke:var(--red);stroke-width:2}
+svg .so{fill:var(--paper);stroke:var(--red);stroke-width:2}
+svg .conn{stroke:var(--rule);stroke-width:3}
+svg .rng{stroke:var(--ink);stroke-width:6;stroke-linecap:round;opacity:.45}
+svg .nodata{font-size:13px;font-style:italic;fill:var(--muted)}
+svg .row-es{fill:var(--track)}
+svg .bk{fill:var(--bar)}
+svg .bk.ink{fill:var(--ink)}
+svg .bk.red{fill:var(--red)}
+svg .unk{fill:none;stroke:var(--muted);stroke-width:2;stroke-dasharray:5 4}
+.keys{display:flex;flex-wrap:wrap;gap:.4rem 1.3rem;list-style:none;padding:0;margin:.6rem 0 1rem;font-size:.92rem;color:var(--muted)}
+.keys li{display:flex;align-items:center;gap:.4rem}
+.keys svg{width:16px;height:16px;min-width:0}
+
+/* Lists, details */
+.reasons{margin:1.5rem 0 0;padding:0;list-style:none;border-top:2px solid var(--text)}
+.reasons li{padding:1.1rem 0;border-bottom:1px solid var(--rule)}
+.reasons h3{margin-bottom:.35rem}
+.reasons p{margin:0}
+.tag{font-family:"Caveat","Comic Sans MS",cursive;font-size:1.3rem;color:var(--red);margin-left:.35rem;font-weight:700}
+details{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:1.5rem 0;padding:.2rem 0}
+details+details{margin-top:-1.5rem;border-top:0}
+summary{cursor:pointer;font-weight:700;padding:.75rem 0;list-style:none;display:flex;align-items:center;gap:.6rem}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:2px solid var(--text);border-radius:3px;font-size:1rem;line-height:1;flex:none}
+details[open] summary::before{content:"−"}
+details>div{padding:0 0 1rem}
+details ul{padding-left:1.2rem;margin:0}
+details li{margin-bottom:.55rem}
+
+/* Teachers */
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;margin:1.5rem 0 2rem}
+.pair div{border-top:2px solid var(--text);padding-top:.75rem}
+.pair .n{font-size:1.9rem;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);line-height:1.1}
+.pair .vs{color:var(--muted)}
+.stack{margin:1rem 0 .5rem;padding:0;list-style:none}
+.stack li{margin-bottom:.9rem}
+.stack .lab{font-weight:700;font-size:.98rem;margin-bottom:.3rem}
+.stack .bar{display:flex;height:30px;border:1px solid var(--text)}
+.stack .bar span{display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;color:#fff;min-width:0;overflow:hidden}
+.s1{background:var(--ink)}.s2{background:#4F78C4}.s3{background:#8AA6D8;color:#14213D!important}.s4{background:var(--red)}.s5{background:var(--track);color:var(--text)!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s1{color:#10202B!important}}
+:root[data-theme="dark"] .s1{color:#10202B!important}
+.slegend{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;list-style:none;padding:0;margin:.5rem 0 1.5rem;font-size:.92rem}
+.slegend li{display:flex;align-items:center;gap:.45rem}
+.callout{border-left:4px solid var(--red);padding:.2rem 0 .2rem 1rem;margin:1.5rem 0}
+.callout .n{font-size:2.6rem;font-weight:700;color:var(--red);line-height:1;display:block;margin-bottom:.35rem}
+
+.sources{margin:0;padding:0;list-style:none}
+.sources li{padding:.65rem 0;border-bottom:1px solid var(--rule)}
+.sources li span{display:block;font-size:.9rem;color:var(--muted)}
+.srcgroup{font-weight:700;margin:2rem 0 .25rem}
+footer{padding-top:2rem}
+
+@media (max-width:820px){
+  .page::before{left:1.25rem}
+  section,header.hero,footer{grid-template-columns:minmax(0,1fr);padding-left:1rem}
+  .margin{text-align:left;order:2;margin:.25rem 0 1rem;padding:0}
+  .margin:empty{display:none}
+  .hourgrid{--cols:25}
+  .years{grid-template-columns:minmax(0,1fr)}
+  .years div{border-right:0;border-bottom:1px solid var(--rule);padding-left:0!important}
+  .pair{grid-template-columns:minmax(0,1fr)}
+  .brand{display:none}
+  .photo{transform:none}
+}
+
+/* Interactive: guesses, class results, tooltips, highlight */
+.guess{position:relative;background:var(--surface);border:2px solid var(--text);padding:1.4rem 1.4rem 1.2rem;margin:1.75rem 0 1.25rem;max-width:660px}
+.guess::before{content:"endevina";position:absolute;top:-1.05rem;left:1rem;background:var(--paper);padding:0 .45rem;font-family:"Caveat","Comic Sans MS",cursive;font-size:1.5rem;font-weight:700;color:var(--red);line-height:1.4}
+.gq{font-weight:700;font-size:1.15rem;margin:0 0 .9rem}
+.grow{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.grow input[type=range]{flex:1;min-width:0;accent-color:var(--ink);height:28px}
+.grow output{font-size:1.5rem;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;min-width:6.5ch;text-align:right}
+.gbtns{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.25rem}
+.btn{font:inherit;font-weight:700;background:var(--text);color:var(--paper);border:2px solid var(--text);padding:.55rem 1.1rem;border-radius:3px;cursor:pointer}
+.btn:disabled{opacity:.45;cursor:default}
+.link{font:inherit;font-size:.95rem;background:none;border:0;padding:.25rem 0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1rem}
+.chips button,.opts button{font:inherit;font-weight:700;border:2px solid var(--text);background:var(--paper);color:var(--text);border-radius:3px;cursor:pointer}
+.chips button{width:2.5rem;height:2.5rem;font-variant-numeric:tabular-nums}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.75rem}
+.opts button{padding:.5rem 1rem}
+.chips button:hover,.opts button:hover{background:var(--track)}
+.chips button[aria-pressed="true"],.opts button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.chips button.ok{background:var(--red);border-color:var(--red);color:#fff}
+.gres{font-size:1.1rem;margin:0}
+.gres .big{display:block;font-size:2.4rem;font-weight:700;color:var(--ink);line-height:1.1;margin:.2rem 0 .4rem;font-variant-numeric:tabular-nums}
+.cmp{display:grid;grid-template-columns:6.5rem minmax(0,1fr) 5.5rem;gap:.35rem .6rem;align-items:center;margin:.9rem 0 .2rem;font-size:.95rem}
+.cmp .tr{height:18px;background:var(--track);position:relative}
+.cmp .tr span{position:absolute;inset:0 auto 0 0;transition:width .6s ease}
+.cmp .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.cls{margin-top:1.1rem;border-top:2px dashed var(--rule);padding-top:1rem}
+.cls h4{margin:0 0 .35rem;font-size:1rem}
+.cls p{margin:0 0 .5rem}
+.cls .note{font-size:.85rem;color:var(--muted);margin-top:.5rem}
+.cls svg{display:block;width:100%;height:auto;max-width:600px}
+.mini{display:grid;grid-template-columns:8rem minmax(0,1fr) 3.2rem;gap:.3rem .6rem;align-items:center;font-size:.92rem;max-width:560px}
+.mini .tr{height:14px;background:var(--track);position:relative}
+.mini .tr span{position:absolute;inset:0 auto 0 0;background:var(--bar)}
+.mini .me .tr span{background:var(--ink)}
+.mini .me{font-weight:700}
+.mini .v{text-align:right;font-variant-numeric:tabular-nums}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.5rem;margin:.5rem 0 1.25rem}
+.toolbar .tabs{margin:0}
+.toolbar label{font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:.5rem}
+.toolbar select{font:inherit;font-size:.95rem;padding:.4rem .5rem;border:2px solid var(--text);background:var(--paper);color:var(--text);border-radius:3px}
+.chart li.hl .b{background:var(--red)}
+.chart li.hl .c,.chart li.hl .v{color:var(--red);font-weight:700}
+svg .ln.hl{stroke:var(--red);stroke-width:3.5}
+svg .dot.hl{fill:var(--red)}
+svg .lab.hl{fill:var(--red);font-weight:700}
+svg .mine{fill:var(--red)}
+svg .other{fill:var(--ink);opacity:.35}
+svg .real{stroke:var(--text);stroke-width:2.5}
+[data-tip]{cursor:pointer}
+.tip{position:fixed;z-index:30;pointer-events:none;background:var(--text);color:var(--paper);font-size:.85rem;line-height:1.35;padding:.4rem .6rem;border-radius:4px;max-width:260px;opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s}
+.tip.on{opacity:1;transform:none}
+.pre{visibility:hidden}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="top" aria-label="Capítols">
+  <div class="top-in">
+    <a class="brand" href="#inici" data-go="inici">hores d’escola</a>
+    <div class="chapters">
+      <a href="#hores" data-go="hores">Un curs</a>
+      <a href="#europa" data-go="europa">Europa</a>
+      <a href="#mon" data-go="mon">El món</a>
+      <a href="#sexe" data-go="sexe">Nois i noies</a>
+      <a href="#docents" data-go="docents">Docents</a>
+      <a href="#fonts" data-go="fonts">Fonts</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+<header class="hero" id="inici">
+  <p class="margin pre" id="hero-note" aria-hidden="true">és com estar a classe 373 dies seguits, de dia i de nit</p>
+  <div class="body wide">
+    <p class="lede">L’escola obligatòria, comptada en hores.</p>
+    <h1>Quantes hores passa un alumne a classe de 1r de primària a 4t d’ESO?</h1>
+    <div class="guess" id="g-hores">
+      <p class="gq">Abans de veure-ho, fes la teva aposta.</p>
+      <div class="grow">
+        <input type="range" id="gh" min="1000" max="20000" step="250" value="5000" aria-label="La teva estimació, en hores">
+        <output id="ghv" for="gh">5.000 h</output>
+      </div>
+      <div class="gbtns" id="gh-btns">
+        <button type="button" class="btn" id="gh-ok">Comprova-ho</button>
+        <button type="button" class="link" id="gh-skip">Mostra-ho sense endevinar</button>
+      </div>
+      <div id="gh-res" aria-live="polite" hidden></div>
+      <div class="cls" id="cls-hores" hidden></div>
+    </div>
+    <div class="hourgrid" id="hourgrid" role="img" aria-label="Quadrícula de 895 quadrets: 473 de primària, 316 de 1r a 3r d’ESO i 106 de 4t d’ESO. Cada quadret són 10 hores."></div>
+    <ul class="legend" id="hero-legend" hidden>
+      <li><span class="sw p"></span>Primària, 6 cursos: 4.733 h</li>
+      <li><span class="sw e"></span>1r a 3r d’ESO: 3.158 h</li>
+      <li><span class="sw q"></span>4t d’ESO: 1.058 h</li>
+    </ul>
+    <p class="small" id="hero-note2" hidden>Cada quadret són 10 hores de classe. Mínims recomanats per al curs 2024/25, mitjana de totes les comunitats autònomes (Eurydice).</p>
+  </div>
+</header>
+
+<section id="hores" aria-labelledby="h-hores">
+  <p class="margin" aria-hidden="true">el salt de primària a l’ESO: +264 hores l’any</p>
+  <div class="body">
+    <h2 id="h-hores">Un curs, en hores</h2>
+    <p class="idea">A primària són unes quatre hores i mitja de classe al dia. A l’ESO, unes sis.</p>
+    <figure class="photo" style="max-width:600px">
+      <img src="img/escola-del-bosc-1914.jpg" alt="Un mestre explica davant d’una pissarra col·locada sota un arbre, mentre els alumnes l’escolten asseguts en cadires plegables al bosc." width="643" height="238">
+      <figcaption>Classe a l’aire lliure a l’Escola del Bosc de Montjuïc, Barcelona, cap al 1914.</figcaption>
+    </figure>
+    <div class="years">
+      <div class="p"><span class="t">Primària</span><span class="n">789 h</span>per curs</div>
+      <div class="e"><span class="t">1r a 3r d’ESO</span><span class="n">1.053 h</span>per curs</div>
+      <div class="q"><span class="t">4t d’ESO</span><span class="n">1.058 h</span>per curs</div>
+    </div>
+    <div class="calc">
+      <label for="curs">I tu, en quin curs ets?</label>
+      <select id="curs">
+        <option value="0">1r de primària</option><option value="1">2n de primària</option><option value="2">3r de primària</option>
+        <option value="3">4t de primària</option><option value="4">5è de primària</option><option value="5">6è de primària</option>
+        <option value="6" selected>1r d’ESO</option><option value="7">2n d’ESO</option><option value="8">3r d’ESO</option><option value="9">4t d’ESO</option>
+      </select>
+      <output id="calcout" for="curs" aria-live="polite"></output>
+      <div class="track10" id="track10" aria-hidden="true"></div>
+      <div class="tlabels" aria-hidden="true"><span>1r primària</span><span>4t ESO</span></div>
+    </div>
+    <details>
+      <summary>Què compten aquestes hores?</summary>
+      <div><p>Són hores d’instrucció de 60 minuts, en un calendari d’almenys 175 dies lectius. No hi entren l’esbarjo, els deures ni les extraescolars. Són mínims: cada comunitat i cada centre en pot fer més.</p></div>
+    </details>
+  </div>
+</section>
+
+<section id="europa" aria-labelledby="h-europa">
+  <p class="margin" aria-hidden="true">la mateixa pregunta, mirada de quatre maneres</p>
+  <div class="body wide">
+    <h2 id="h-europa">Espanya a Europa</h2>
+    <div class="guess" id="g-lloc">
+      <p class="gq">Comparem 20 països europeus. En quin lloc creus que queda Espanya en hores de classe a l’ESO?</p>
+      <div class="chips" id="chips" role="group" aria-label="Posició de l’1 al 20"></div>
+      <div class="gbtns" id="gl-btns"><button type="button" class="link" id="gl-skip">Mostra-ho sense endevinar</button></div>
+      <div id="gl-res" aria-live="polite" hidden></div>
+      <div class="cls" id="cls-lloc" hidden></div>
+    </div>
+    <div id="eu-content" hidden>
+    <p class="idea" style="max-width:52ch">A l’ESO, Espanya és el segon país europeu amb més hores per curs. Però això no vol dir que sigui el que en fa més en total, ni el que aprèn més.</p>
+    <div class="toolbar">
+    <div class="tabs" role="tablist" aria-label="Vistes de la comparació europea">
+      <button role="tab" id="t-s" aria-selected="true" aria-controls="panel" data-v="s">ESO per curs</button>
+      <button role="tab" id="t-p" aria-selected="false" aria-controls="panel" data-v="p" tabindex="-1">Primària per curs</button>
+      <button role="tab" id="t-a" aria-selected="false" aria-controls="panel" data-v="a" tabindex="-1">Acumulades</button>
+      <button role="tab" id="t-r" aria-selected="false" aria-controls="panel" data-v="r" tabindex="-1">I els resultats?</button>
+    </div>
+    <label>Destaca un país <select id="hl"><option value="">Cap</option></select></label>
+    </div>
+    <div class="panel" id="panel" role="tabpanel" aria-labelledby="t-s"></div>
+    <details style="max-width:68ch">
+      <summary>Per què Espanya fa tantes hores a l’ESO?</summary>
+      <div>
+        <ul class="reasons" style="border-top:0;margin-top:0">
+          <li><h3>Pocs dies, jornades llargues</h3><p>La llei fixa un mínim de 175 dies lectius i les vacances d’estiu són llargues. Les hores es concentren: amb dades de 2015, l’OCDE ja situava Espanya entre els pocs països amb sis hores o més de classe diària a secundària.</p></li>
+          <li><h3>Un horari molt reglat</h3><p>L’Estat i les comunitats fixen les hores de cada matèria. En altres països, com Finlàndia o els Països Baixos, la normativa dona un total per a diversos cursos i cada centre el reparteix.</p></li>
+          <li><h3>El clima, no directament<span class="tag">tòpic</span></h3><p>La calor pot explicar un estiu llarg, però no el total d’hores: Portugal (818 h) i França (973 h) en fan menys a l’ESO.</p></li>
+          <li><h3>La conciliació familiar<span class="tag">hipòtesi</span></h3><p>És una idea habitual al debat, però no l’hem trobada quantificada en cap estudi oficial.</p></li>
+        </ul>
+      </div>
+    </details>
+    </div>
+  </div>
+</section>
+
+<section id="mon" aria-labelledby="h-mon">
+  <p class="margin" aria-hidden="true">fora d’Europa, la pregunta més difícil és «quantes?»</p>
+  <div class="body wide">
+    <h2 id="h-mon">El món</h2>
+    <img class="globe" src="img/terra-apollo17-1972.jpg" alt="La Terra vista des de l’espai, amb l’Àfrica i l’Antàrtida." width="640" height="640">
+    <p class="credit">La Terra des de l’Apol·lo 17, 1972. NASA.</p>
+    <p class="idea" style="max-width:52ch">Dels deu països més poblats del món, només tres publiquen hores comparables. La resta s’han de calcular, estimar o no se saben.</p>
+    <div class="svgwrap" id="world" role="img" aria-label="Hores de classe per curs a primària i a la primera etapa de secundària als deu països més poblats i a Espanya, amb el tipus de dada de cada xifra."></div>
+    <ul class="keys">
+      <li><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" style="fill:var(--ink)"/></svg>Primària</li>
+      <li><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" style="fill:var(--red)"/></svg>1a etapa de secundària</li>
+      <li><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" style="fill:var(--muted)"/></svg>Dada oficial</li>
+      <li><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" style="fill:none;stroke:var(--muted);stroke-width:2"/></svg>Calculada a partir de la normativa</li>
+      <li><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="3" width="10" height="10" transform="rotate(45 8 8)" style="fill:none;stroke:var(--muted);stroke-width:2"/></svg>Declarada pels centres</li>
+    </ul>
+    <details style="max-width:68ch">
+      <summary>D’on surt cada xifra</summary>
+      <div><ul>
+        <li><b>Índia:</b> mínims de la llei del dret a l’educació de 2009 (800 h als cursos 1r a 5è, 1.000 h de 6è a 8è).</li>
+        <li><b>Xina:</b> calculat a partir del pla nacional de 2022 (sessions setmanals × durada × 35 setmanes).</li>
+        <li><b>Estats Units i Brasil:</b> Education at a Glance 2025, OCDE.</li>
+        <li><b>Indonèsia:</b> només cursos 3r a 6è, a partir de l’estructura curricular oficial i sessions de 35 minuts.</li>
+        <li><b>Pakistan:</b> 4t curs, segons el que declaren els directors a TIMSS 2019. No és una xifra normativa.</li>
+        <li><b>Rússia:</b> mínims de l’estàndard federal, convertits suposant sessions de 45 minuts.</li>
+        <li><b>Nigèria, Bangladesh i Etiòpia:</b> no hem trobat cap xifra fiable.</li>
+      </ul></div>
+    </details>
+    <details style="max-width:68ch">
+      <summary>I els països més petits?</summary>
+      <div><p>Dels deu països menys poblats, només Liechtenstein té dades oficials comparables: 753 h a primària i entre 928 i 946 h a secundària. El Vaticà no té sistema escolar propi, i de Tuvalu, Nauru, Palau, San Marino o les Illes Marshall no hi ha xifres en cap base de dades internacional.</p></div>
+    </details>
+  </div>
+</section>
+
+<section id="sexe" aria-labelledby="h-sexe">
+  <p class="margin" aria-hidden="true">comptar escoles no és comptar alumnes</p>
+  <div class="body">
+    <h2 id="h-sexe">Nois i noies, junts o separats?</h2>
+    <p class="idea">A la major part del món, nois i noies van a la mateixa escola. Però en alguns països la separació és la norma.</p>
+    <figure class="photo r" style="max-width:460px">
+      <svg viewBox="0 0 440 280" role="img" aria-label="Dibuix de la façana d’una escola antiga amb dues portes separades: una amb el rètol NENS i l’altra amb el rètol NENES." style="display:block;width:100%;height:auto;background:#F4F1E8">
+        <g fill="none" stroke="#2B2F36" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M30 262 H410"/>
+          <path d="M50 262 V78 H390 V262"/>
+          <path d="M40 78 H400 L392 64 H48 Z"/>
+          <path d="M150 64 L220 26 L290 64"/>
+          <circle cx="220" cy="48" r="9"/>
+          <path d="M220 42 V48 L224 51"/>
+          <rect x="80" y="96" width="44" height="54" rx="2"/><path d="M102 96 V150 M80 123 H124"/>
+          <rect x="198" y="96" width="44" height="54" rx="2"/><path d="M220 96 V150 M198 123 H242"/>
+          <rect x="316" y="96" width="44" height="54" rx="2"/><path d="M338 96 V150 M316 123 H360"/>
+          <path d="M84 262 V206 Q84 180 112 180 Q140 180 140 206 V262"/>
+          <path d="M112 182 V262"/>
+          <path d="M300 262 V206 Q300 180 328 180 Q356 180 356 206 V262"/>
+          <path d="M328 182 V262"/>
+          <path d="M220 168 V262" stroke-dasharray="6 6" stroke="#C21F3A"/>
+        </g>
+        <g font-family="Atkinson Hyperlegible, system-ui, sans-serif" font-weight="700" font-size="17" fill="#2B2F36" text-anchor="middle" letter-spacing="3">
+          <text x="112" y="172" style="fill:#2B2F36">NENS</text>
+          <text x="328" y="172" style="fill:#2B2F36">NENES</text>
+        </g>
+        <g stroke="#2B2F36" stroke-width="1" opacity=".35">
+          <path d="M56 160 L72 176 M56 176 L72 192 M366 200 L382 216 M366 220 L382 236 M160 230 L176 246 M260 214 L276 230"/>
+        </g>
+      </svg>
+      <figcaption>Dues portes, dues escoles en una. Durant el franquisme, la coeducació estava prohibida. (Dibuix original.)</figcaption>
+    </figure>
+    <p>Segons la UNESCO, en el 60% dels sistemes educatius estudiats menys del 5% de les escoles de primària són d’un sol sexe. La separació és habitual a Xile, Irlanda, Israel o Singapur, i predomina en molts països de majoria musulmana.</p>
+    <h3>Escoles separades, alumnes separats</h3>
+    <p>El percentatge d’escoles i el d’alumnes no sempre coincideixen. A l’Iran, les escoles separades són grans i públiques; a Rússia, petites i privades.</p>
+    <div class="svgwrap" id="schools" role="img" aria-label="A l’Iran, el 66% de les escoles de primària són d’un sol sexe i hi estudia el 84% de l’alumnat de 4t. A Rússia, el 8% de les escoles i només l’1% de l’alumnat."></div>
+    <ul class="keys">
+      <li><span class="sw" style="background:var(--bar)"></span>% d’escoles d’un sol sexe</li>
+      <li><span class="sw" style="background:var(--ink)"></span>% d’alumnat que hi estudia</li>
+    </ul>
+
+    <h3 style="margin-top:2rem">I a Espanya?</h3>
+    <p>La llei no permet pagar amb diners públics les escoles que separen per sexe, i el Tribunal Constitucional ho va avalar el 2023. El nombre de centres concertats que separen ha anat baixant. Dels privats sense concert, ningú no en porta el compte.</p>
+    <div class="svgwrap" id="spain" role="img" aria-label="Centres concertats que separen per sexe a Espanya: 87 el curs 2018-19, 51 el 2022-23 i 48 a principis de 2024. Els centres privats sense concert no es compten enlloc."></div>
+
+    <details>
+      <summary>Altres països en xifres</summary>
+      <div><ul>
+        <li><b>Bangladesh:</b> el 2023, de les escoles de secundària, 3.285 eren només de noies i 305 només de nois. El 80% eren mixtes.</li>
+        <li><b>Pakistan:</b> a la pública, la separació és la tendència tradicional, excepte a la província de Sind. La falta d’escoles de noies a prop és una causa d’abandonament.</li>
+        <li><b>Estats Units:</b> les escoles públiques d’un sol sexe van passar de 2 el 1995 a 121 el 2016, entre més de 99.000. A la privada són al voltant del 5%.</li>
+        <li><b>Nigèria:</b> desenes d’instituts federals són només de noies o només de nois.</li>
+      </ul></div>
+    </details>
+    <details>
+      <summary>Una altra segregació: la socioeconòmica</summary>
+      <div><p>Separar alumnes no és només una qüestió de sexe. L’OCDE mesura fins a quin punt els alumnes rics i pobres van a escoles diferents, i conclou que la lliure elecció d’escola tendeix a augmentar aquesta separació. A Catalunya, el Síndic de Greuges en fa el seguiment anual.</p></div>
+    </details>
+  </div>
+</section>
+
+<section id="docents" aria-labelledby="h-docents">
+  <p class="margin" aria-hidden="true">el 5% del temps, però la primera font d’estrès</p>
+  <div class="body">
+    <h2 id="h-docents">I els docents?</h2>
+    <p class="idea">Que l’alumnat faci moltes hores no vol dir que cada professor en faci més.</p>
+    <figure class="photo" style="max-width:300px">
+      <img src="img/rosa-sensat-1912.jpg" alt="Retrat ovalat d’una dona amb el cabell recollit i un vestit fosc." width="480" height="739">
+      <figcaption>Rosa Sensat, mestra i pedagoga, 1912.</figcaption>
+    </figure>
+    <div class="pair">
+      <div><span class="n">828 h</span><br>de classe l’any per mestre de primària <span class="vs">(OCDE: 770 h)</span></div>
+      <div><span class="n">642 h</span><br>de classe l’any per professor d’ESO <span class="vs">(OCDE: 710 h)</span></div>
+    </div>
+    <h3>On va el temps de treball</h3>
+    <ul class="stack" id="stack"></ul>
+    <ul class="slegend">
+      <li><span class="sw s1"></span>Fer classe</li><li><span class="sw s2"></span>Preparar classes</li><li><span class="sw s3"></span>Corregir i avaluar</li>
+      <li><span class="sw s4"></span>Feina administrativa</li><li><span class="sw s5" style="border:1px solid var(--text)"></span>Altres tasques</li>
+    </ul>
+    <div class="callout">
+      <span class="n">64%</span>
+      <p>dels professors de secundària a Espanya diuen que la feina administrativa els genera bastant o molt d’estrès, davant del 52% de mitjana a l’OCDE.</p>
+    </div>
+    <details>
+      <summary>Una llei en tràmit</summary>
+      <div><p>El Govern ha portat al Congrés un projecte de llei que fixaria per als centres públics un màxim de 23 hores lectives setmanals a infantil i primària i 18 a la resta d’etapes, i ratios de 22 alumnes a primària i 25 a l’ESO. Al juny de 2026 el Congrés va rebutjar les esmenes a la totalitat i el text continua la tramitació.</p></div>
+    </details>
+  </div>
+</section>
+
+<section id="fonts" aria-labelledby="h-fonts">
+  <p class="margin" aria-hidden="true">totes les xifres tenen font</p>
+  <div class="body">
+    <h2 id="h-fonts">Fonts</h2>
+    <p class="srcgroup">Hores de classe</p>
+    <ul class="sources">
+      <li><a href="https://eurydice.eacea.ec.europa.eu/publications/recommended-annual-instruction-time-full-time-compulsory-education-europe-20242025">Recommended Annual Instruction Time in Full-time Compulsory Education in Europe 2024/2025</a><span>Eurydice, Comissió Europea, 2025.</span></li>
+      <li><a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/09/education-at-a-glance-2025_c58fc9ae/1c0d9c79-en.pdf">Education at a Glance 2025</a><span>OCDE. Taules D1.1 i D1.2: hores i dies lectius.</span></li>
+      <li><a href="https://www.educacionfpydeportes.gob.es/dam/jcr:178b10d1-4901-4575-b40d-732183977d7d/infograf-as-panorama-2025.pdf">Panorama de la Educación 2025. Infografies</a><span>Ministeri d’Educació, FP i Esports.</span></li>
+      <li>Right of Children to Free and Compulsory Education Act, 2009<span>Índia. Annex amb hores i dies mínims.</span></li>
+      <li>义务教育课程方案 (2022)<span>Ministeri d’Educació de la Xina. Pla curricular de l’ensenyament obligatori.</span></li>
+      <li>ФГОС НОО i ФГОС ООО (2021)<span>Rússia. Estàndards federals de primària i secundària bàsica.</span></li>
+      <li><a href="https://timssandpirls.bc.edu/timss2019/international-results/instruction-time-mathematics/index.html">TIMSS 2019 International Results: instructional time</a><span>IEA, Boston College.</span></li>
+      <li>PISA 2022 Results, volum I<span>OCDE. Puntuacions de matemàtiques.</span></li>
+    </ul>
+    <p class="srcgroup">Nois i noies</p>
+    <ul class="sources">
+      <li><a href="https://www.education-progress.org/es/focus/4-singlesexschools">How many children attend single-sex schools?</a><span>UNESCO, GEM Report SCOPE (dades de TIMSS 2015).</span></li>
+      <li><a href="https://en.bonikbarta.com/exclusive/sZF4bseblc23TtUS/">Co-education more common in Madrasahs than in general education</a><span>Bonik Barta, a partir de dades oficials de Bangladesh.</span></li>
+      <li><a href="https://aibm.org/research/all-boys-schools-what-do-we-know/">All-boys schools: what do we know?</a><span>American Institute for Boys and Men.</span></li>
+      <li><a href="https://www.publico.es/sociedad/segregacion-educativa-sexos-grandes-debates-proxima-legislatura.html">Recompte de 2018-19 (EFE)</a><span>Público.</span></li>
+      <li><a href="https://www.religiondigital.org/educacion/colegios-segregan-sexo-Espana-opus-conservadores_0_2544345557.html">Recompte de 2022-23 (EFE)</a><span>Religión Digital.</span></li>
+      <li><a href="https://www.eldiario.es/sociedad/48-colegios-siguen-segregando-sexos-fondos-publicos-pese-prohibe-ley-educacion_1_10883607.html">48 colegios siguen segregando por sexos con fondos públicos</a><span>elDiario.es, 2024.</span></li>
+      <li><a href="https://www.noticiasdenavarra.com/sociedad/2024/01/12/justicia-navarra-confirma-bachillerato-segrega-7734808.html">Sentència del Tribunal Constitucional sobre la LOMLOE</a><span>Notícies de Navarra, 2024.</span></li>
+      <li><a href="https://www.oecd.org/en/publications/balancing-school-choice-and-equity_2592c974-en/full-report/component-3.html">Balancing School Choice and Equity</a><span>OCDE, 2019.</span></li>
+    </ul>
+    <p class="srcgroup">Docents</p>
+    <ul class="sources">
+      <li><a href="https://www.educacionfpydeportes.gob.es/dam/jcr:d11c00bd-76c0-402b-b011-60348b6648e1/presentaci-n-talis-2024-.pdf">TALIS 2024. Informe español</a><span>Institut Nacional d’Avaluació Educativa.</span></li>
+      <li><a href="https://www.aprendemas.com/es/blog/mundo-educativo/la-ocde-alerta-de-la-falta-de-profesores-y-espana-destaca-por-la-elevada-temporalidad-docente-202677">Education at a Glance 2026: hores lectives del professorat</a><span>Resum de premsa.</span></li>
+      <li><a href="https://www.educacionfpydeportes.gob.es/ca/prensa/actualidad/2026/06/20260618-leyratios.html">Projecte de llei de ratios i jornada lectiva</a><span>Ministeri d’Educació, FP i Esports, juny de 2026.</span></li>
+    </ul>
+    <p class="srcgroup">Imatges</p>
+    <ul class="sources">
+      <li><a href="https://commons.wikimedia.org/wiki/File:Escola-Bosc.jpg">Escola del Bosc de Montjuïc, Barcelona, cap al 1914</a><span>Autor desconegut. Domini públic, via Wikimedia Commons.</span></li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Rosa_Sensat_i_Vil%C3%A0.jpg">Rosa Sensat i Vilà, 1912</a><span>La Il·lustració Catalana, núm. 464. Domini públic, via Wikimedia Commons.</span></li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:The_Blue_Marble_(remastered).jpg">The Blue Marble, 1972</a><span>NASA, tripulació de l’Apol·lo 17. Domini públic.</span></li>
+      <li>Façana amb portes separades<span>Dibuix original fet per a aquesta web.</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p class="margin" aria-hidden="true"></p>
+  <div class="body">
+    <p class="small">Dades consultades l’octubre de 2026. Les hores són mínims recomanats i mitjanes; hi pot haver diferències entre comunitats i entre centres. Les xifres calculades o declarades s’indiquen com a tals.</p>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fmt=new Intl.NumberFormat('ca-ES');
+  var NS='http://www.w3.org/2000/svg';
+
+  /* Chapter navigation */
+  var links=document.querySelectorAll('[data-go]');
+  function go(id,smooth){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:(smooth&&!reduce)?'smooth':'auto'});}
+  Array.prototype.forEach.call(links,function(a){a.addEventListener('click',function(e){e.preventDefault();go(a.dataset.go,true);});});
+  var h=(location.hash||'').replace('#','');
+  if(h&&document.getElementById(h)) setTimeout(function(){go(h,false);},50);
+  var navlinks=document.querySelectorAll('.chapters a');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(ents){
+      ents.forEach(function(en){
+        if(en.isIntersecting){
+          Array.prototype.forEach.call(navlinks,function(a){a.setAttribute('aria-current',a.dataset.go===en.target.id?'true':'false');});
+        }
+      });
+    },{rootMargin:'-40% 0px -55% 0px'});
+    ['hores','europa','mon','sexe','docents','fonts'].forEach(function(id){io.observe(document.getElementById(id));});
+  }
+
+  /* Hero grid */
+  var grid=document.getElementById('hourgrid'),cells=[],frag=document.createDocumentFragment();
+  [['p',473],['e',316],['q',106]].forEach(function(c){for(var i=0;i<c[1];i++){var s=document.createElement('span');s.dataset.k=c[0];frag.appendChild(s);cells.push(s);}});
+  grid.appendChild(frag);
+  function fillGrid(){
+    if(reduce){cells.forEach(function(s){s.className=s.dataset.k;});return;}
+    var idx=0,per=Math.ceil(cells.length/70);(function step(){for(var j=0;j<per&&idx<cells.length;j++,idx++){cells[idx].className=cells[idx].dataset.k;}if(idx<cells.length)requestAnimationFrame(step);})();
+  }
+
+  /* Calculator */
+  var years=[];for(var y=0;y<6;y++)years.push({h:4733/6,k:'p'});for(var y2=0;y2<3;y2++)years.push({h:3158/3,k:'e'});years.push({h:1058,k:'q'});
+  var names=['1r de primària','2n de primària','3r de primària','4t de primària','5è de primària','6è de primària','1r d’ESO','2n d’ESO','3r d’ESO','4t d’ESO'];
+  var track=document.getElementById('track10');
+  years.forEach(function(yr){var i=document.createElement('i');i.style.setProperty('--w',yr.h.toFixed(0));i.className=yr.k;track.appendChild(i);});
+  function calc(){
+    var c=parseInt(document.getElementById('curs').value,10),done=0;
+    for(var i=0;i<=c;i++)done+=years[i].h;done=Math.round(done);
+    document.getElementById('calcout').innerHTML='Quan acabis '+names[c]+' hauràs fet unes <b>'+fmt.format(done)+' hores</b> de classe: el '+Math.round(done/8949*100)+'% de tota l’escola obligatòria, l’equivalent a '+fmt.format(Math.round(done/24))+' dies sencers.';
+    Array.prototype.forEach.call(track.children,function(el,i){el.classList.toggle('on',i<=c);el.classList.toggle('now',i===c);});
+  }
+  document.getElementById('curs').addEventListener('change',calc);calc();
+
+  /* SVG helpers */
+  function el(tag,attrs,text){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;return e;}
+  function svg(w,h){return el('svg',{viewBox:'0 0 '+w+' '+h,role:'presentation'});}
+  function spread(items,minGap,lo,hi){items.sort(function(a,b){return a.y-b.y;});for(var i=1;i<items.length;i++){if(items[i].y-items[i-1].y<minGap)items[i].y=items[i-1].y+minGap;}var over=items.length?items[items.length-1].y-hi:0;if(over>0)items.forEach(function(it){it.y-=over;});return items;}
+
+  /* Europe data (Eurydice 2024/25) */
+  var eu=[['Dinamarca',1000,1200],['Espanya',789,1053],['Països Baixos',940,1000],['Itàlia',917,990],['França',864,973],['Suïssa',798,963],['Bèlgica',821,949],['Àustria',705,930],['Alemanya',725,886],['Suècia',709,878],['Noruega',753,874],['Txèquia',669,865],['Estònia',661,823],['Portugal',874,818],['Finlàndia',660,817],['Hongria',666,796],['Grècia',718,791],['Polònia',564,762],['Croàcia',473,663],['Irlanda',903,465]];
+  var panel=document.getElementById('panel');
+  var hl='',mine={},pisaSkip=false,curView='s';
+
+  function viewBars(k){
+    var col=k==='p'?1:2,avg=k==='p'?725:857,max=1200;
+    var html='<p class="q">'+(k==='p'?'Hores per curs a primària':'Hores per curs de 1r a 3r d’ESO')+'</p><p class="a">'+(k==='p'?'A primària, Espanya està a prop de la mitjana europea.':'Només Dinamarca en fa més. La mitjana de l’OCDE és de 922 hores.')+'</p><div class="chartwrap"><ul class="chart">';
+    eu.slice().sort(function(a,b){return b[col]-a[col];}).forEach(function(d){
+      html+='<li class="'+(d[0]==='Espanya'?'es':(d[0]===hl?'hl':''))+'" data-tip="'+d[0]+': '+fmt.format(d[col])+' hores per curs ('+(d[col]>=avg?'+':'−')+fmt.format(Math.abs(d[col]-avg))+' respecte la mitjana)" aria-label="'+d[0]+': '+fmt.format(d[col])+' hores per curs"><span class="c">'+d[0]+'</span><span class="tr"><span class="b" style="width:'+(d[col]/max*100)+'%"></span><span class="avg" style="left:'+(avg/max*100)+'%"></span></span><span class="v">'+fmt.format(d[col])+' h</span></li>';
+    });
+    html+='</ul></div><p class="chartnote"><i></i>Mitjana dels 38 sistemes europeus: '+fmt.format(avg)+' h</p><p class="small">Bèlgica: comunitat flamenca. Països Baixos: itineraris HAVO i VWO. Font: Eurydice 2024/25.</p>';
+    panel.innerHTML=html;
+  }
+
+  function viewCumulative(){
+    var seq={'Espanya':[789,789,789,789,789,789,1053,1053,1053],'Dinamarca':[1000,1000,1000,1000,1000,1000,1000,1200,1200],'Itàlia':[917,917,917,917,917,990,990,990,891],'França':[864,864,864,864,864,973,973,973,973],'Portugal':[874,874,874,874,874,874,818,818,818],'Finlàndia':[660,660,660,660,660,660,817,817,817]};
+    panel.innerHTML='<p class="q">Hores acumulades, any rere any</p><p class="a">A primària, Espanya fa menys hores que França, Itàlia o Portugal. Per això, en acabar el novè any d’escola, França i Itàlia ja n’han acumulat més.</p><div class="svgwrap" id="cum"></div><p class="small">Calculat amb les hores per curs d’Eurydice 2024/25. Dinamarca inclou el curs 0, obligatori als 6 anys. A Finlàndia l’escola comença als 7.</p>';
+    var W=720,H=360,L=56,R=150,T=16,B=40,s=svg(W,H),x=function(i){return L+i*(W-L-R)/8;},yv=function(v){return T+(H-T-B)*(1-v/10000);};
+    [0,2500,5000,7500,10000].forEach(function(v){s.appendChild(el('line',{x1:L,x2:W-R,y1:yv(v),y2:yv(v),class:'ax'}));s.appendChild(el('text',{x:L-8,y:yv(v)+4,'text-anchor':'end',class:'tick'},fmt.format(v)));});
+    for(var i=0;i<9;i++)s.appendChild(el('text',{x:x(i),y:H-B+20,'text-anchor':'middle',class:'tick'},(i+1)+'r'.replace('r',['r','n','r','t','è','è','è','è','è'][i])));
+    s.appendChild(el('text',{x:(L+W-R)/2,y:H-4,'text-anchor':'middle',class:'tick'},'Any d’escola obligatòria'));
+    var labels=[];
+    Object.keys(seq).forEach(function(k){
+      var acc=0,pts=seq[k].map(function(v,i){acc+=v;return [x(i),yv(acc),acc];});
+      var es=k==='Espanya',isHl=k===hl;
+      var p=el('polyline',{points:pts.map(function(p){return p[0]+','+p[1];}).join(' '),class:'ln'+(es?' es':(isHl?' hl':'')),'data-tip':k+': '+fmt.format(acc)+' hores en 9 anys'});
+      p.style.strokeWidth=es||isHl?'':'2';
+      var hit=el('polyline',{points:p.getAttribute('points'),style:'fill:none;stroke:transparent;stroke-width:14','data-tip':p.getAttribute('data-tip')});
+      if(es||isHl){s.appendChild(p);s.appendChild(hit);}else{s.insertBefore(hit,s.firstChild.nextSibling);s.insertBefore(p,s.firstChild.nextSibling);}
+      labels.push({k:k,y:pts[8][1]+4,v:acc,es:es,hl:isHl});
+    });
+    spread(labels,16,T,H-B).forEach(function(l){s.appendChild(el('text',{x:W-R+10,y:l.y,class:'lab'+(l.es?' es':(l.hl?' hl':''))},l.k+' '+fmt.format(l.v)));});
+    document.getElementById('cum').appendChild(s);
+    if(hl&&!seq[hl]){var n=document.createElement('p');n.className='small';n.textContent=hl+' no apareix en aquesta vista: només hi ha els sis països amb durades d’etapa comparables.';document.getElementById('cum').after(n);}
+  }
+
+  function viewResults(){
+    if(mine.pisa==null&&!pisaSkip){
+      panel.innerHTML='<div class="guess" style="margin-top:1.4rem"><p class="gq">Abans de mirar el gràfic: creus que els països que fan més hores de classe treuen millors notes a PISA?</p><div class="opts" role="group" aria-label="La teva resposta"><button type="button" data-a="si">Sí</button><button type="button" data-a="no">No</button><button type="button" data-a="nose">No ho sé</button></div><button type="button" class="link" id="gp-skip">Mostra-ho sense respondre</button></div>';
+      Array.prototype.forEach.call(panel.querySelectorAll('.opts button'),function(b){b.addEventListener('click',function(){mine.pisa=b.dataset.a;save();viewResults();});});
+      document.getElementById('gp-skip').addEventListener('click',function(){pisaSkip=true;viewResults();});
+      return;
+    }
+    var pisa={'Dinamarca':489,'Espanya':473,'Països Baixos':493,'Itàlia':471,'França':474,'Suïssa':508,'Bèlgica':489,'Àustria':487,'Alemanya':475,'Suècia':482,'Noruega':468,'Txèquia':487,'Estònia':510,'Portugal':472,'Finlàndia':484,'Hongria':473,'Grècia':430,'Polònia':489,'Croàcia':463,'Irlanda':492};
+    var said={si:'Tu deies que sí.',no:'Tu deies que no.',nose:'Tu no ho tenies clar.'}[mine.pisa]||'';
+    panel.innerHTML='<p class="q">Més hores, millors resultats?</p><p class="a">'+(said?'<b>'+said+'</b> ':'')+'No necessàriament. Estònia i Suïssa tenen els millors resultats amb menys hores que Espanya. Ara bé, que no hi hagi una relació clara tampoc demostra que les hores no importin: hi influeixen molts altres factors.</p><div class="svgwrap" id="sc"></div><p class="small">Hores per curs de 1r a 3r d’ESO (Eurydice 2024/25) i puntuació de matemàtiques a PISA 2022 (OCDE). Bèlgica: hores de la comunitat flamenca.</p><div class="cls" id="cls-pisa" hidden></div>';
+    var W=720,H=392,L=56,R=24,T=30,B=46,s=svg(W,H),x=function(v){return L+(v-400)/(1260-400)*(W-L-R);},y=function(v){return T+(1-(v-420)/(520-420))*(H-T-B);};
+    [420,440,460,480,500,520].forEach(function(v){s.appendChild(el('line',{x1:L,x2:W-R,y1:y(v),y2:y(v),class:'ax'}));s.appendChild(el('text',{x:L-8,y:y(v)+4,'text-anchor':'end',class:'tick'},v));});
+    [400,600,800,1000,1200].forEach(function(v){s.appendChild(el('text',{x:x(v),y:H-B+20,'text-anchor':'middle',class:'tick'},fmt.format(v)+' h'));});
+    s.appendChild(el('text',{x:(L+W-R)/2,y:H-4,'text-anchor':'middle',class:'tick'},'Hores de classe per curs (1r a 3r d’ESO)'));
+    s.appendChild(el('text',{x:L-40,y:12,class:'tick'},'PISA 2022, matemàtiques (punts)'));
+    var show={'Espanya':1,'Estònia':1,'Suïssa':1,'Dinamarca':1,'Irlanda':1,'Grècia':1,'Finlàndia':1,'Croàcia':1,'Països Baixos':1};
+    eu.forEach(function(d){
+      var cx=x(d[2]),cy=y(pisa[d[0]]),es=d[0]==='Espanya',isHl=d[0]===hl,g=el('g',{'data-tip':d[0]+': '+fmt.format(d[2])+' h de classe, '+pisa[d[0]]+' punts a PISA'});
+      if(es)g.appendChild(el('rect',{x:cx-7,y:cy-7,width:14,height:14,transform:'rotate(45 '+cx+' '+cy+')',class:'dot es'}));
+      else g.appendChild(el('circle',{cx:cx,cy:cy,r:isHl?8:6,class:'dot'+(isHl?' hl':'')}));
+      g.appendChild(el('circle',{cx:cx,cy:cy,r:14,style:'fill:transparent'}));
+      if(isHl||!es)s.appendChild(g);else s.appendChild(g);
+      if(isHl&&!show[d[0]]){var rt=cx>W-150;s.appendChild(el('text',{x:rt?cx-11:cx+11,y:cy+4,'text-anchor':rt?'end':'start',class:'lab hl'},d[0]));}
+      if(show[d[0]]){var right=cx>W-150;s.appendChild(el('text',{x:right?cx-11:cx+11,y:cy+4,'text-anchor':right?'end':'start',class:'lab'+(es?' es':(isHl?' hl':''))},d[0]));}
+    });
+    document.getElementById('sc').appendChild(s);
+    renderClass();
+  }
+
+  var tabs=document.querySelectorAll('.tabs button');
+  function show(v){
+    Array.prototype.forEach.call(tabs,function(b){var on=b.dataset.v===v;b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1;if(on)panel.setAttribute('aria-labelledby',b.id);});
+    curView=v;
+    if(v==='s'||v==='p')viewBars(v);else if(v==='a')viewCumulative();else viewResults();
+  }
+  Array.prototype.forEach.call(tabs,function(b,i){
+    b.addEventListener('click',function(){show(b.dataset.v);});
+    b.addEventListener('keydown',function(e){var n=null;if(e.key==='ArrowRight')n=tabs[(i+1)%tabs.length];if(e.key==='ArrowLeft')n=tabs[(i-1+tabs.length)%tabs.length];if(n){n.focus();show(n.dataset.v);}});
+  });
+  show('s');
+
+  /* World dot plot */
+  (function(){
+    var rows=[
+      ['Índia',800,'o',1000,'o'],['Xina',669,'c',876,'c'],['Estats Units',974,'o',1023,'o'],['Indonèsia',[709,798],'c',null,null,'parcial: només 3r a 6è'],
+      ['Pakistan',1218,'d',null,null,'4t curs'],['Nigèria'],['Brasil',800,'o',800,'o'],['Bangladesh'],['Rússia',554,'c',759,'c'],['Etiòpia'],['Espanya',789,'o',1053,'o']
+    ];
+    var W=720,RH=34,T=30,L=120,R=30,H=T+rows.length*RH+30,s=svg(W,H),x=function(v){return L+(v-400)/(1300-400)*(W-L-R);};
+    [400,600,800,1000,1200].forEach(function(v){s.appendChild(el('line',{x1:x(v),x2:x(v),y1:T-8,y2:H-26,class:'ax'}));s.appendChild(el('text',{x:x(v),y:T-14,'text-anchor':'middle',class:'tick'},fmt.format(v)+' h'));});
+    function mark(v,t,cls,cy,label){
+      var cx=x(v),g=el('g',{}),f=t==='o';
+      if(t==='d')g.appendChild(el('rect',{x:cx-6,y:cy-6,width:12,height:12,transform:'rotate(45 '+cx+' '+cy+')',class:cls+'o'}));
+      else g.appendChild(el('circle',{cx:cx,cy:cy,r:7,class:cls+(f?'f':'o')}));
+      g.appendChild(el('circle',{cx:cx,cy:cy,r:14,style:'fill:transparent'}));
+      g.setAttribute('data-tip',label);return g;
+    }
+    rows.forEach(function(r,i){
+      var cy=T+i*RH+RH/2,es=r[0]==='Espanya';
+      if(es)s.appendChild(el('rect',{x:0,y:cy-RH/2+2,width:W,height:RH-4,class:'row-es'}));
+      s.appendChild(el('text',{x:L-14,y:cy+5,'text-anchor':'end',class:'lab'+(es?' es':'')},r[0]));
+      if(r.length===1){s.appendChild(el('text',{x:x(400)+6,y:cy+5,class:'nodata'},'sense dada fiable'));return;}
+      if(Array.isArray(r[1])){
+        s.appendChild(el('line',{x1:x(r[1][0]),x2:x(r[1][1]),y1:cy,y2:cy,class:'rng'}));
+        s.appendChild(mark(r[1][0],'c','p',cy,r[0]+', primària: '+r[1][0]+' h'));
+        s.appendChild(mark(r[1][1],'c','p',cy,r[0]+', primària: '+r[1][1]+' h'));
+        s.appendChild(el('text',{x:x(r[1][1])+14,y:cy+5,class:'nodata'},r[5]));return;
+      }
+      var same=r[3]!=null&&Math.abs(r[3]-r[1])<20,py=same?cy-6:cy,sy=same?cy+6:cy;
+      if(r[3]!=null&&!same)s.appendChild(el('line',{x1:x(r[1]),x2:x(r[3]),y1:cy,y2:cy,class:'conn'}));
+      s.appendChild(mark(r[1],r[2],'p',py,r[0]+', primària: '+fmt.format(r[1])+' h'));
+      if(r[3]!=null)s.appendChild(mark(r[3],r[4],'s',sy,r[0]+', secundària: '+fmt.format(r[3])+' h'));
+      if(same)s.appendChild(el('text',{x:x(r[1])+14,y:cy+5,class:'nodata'},'igual a les dues etapes'));
+      if(r[5])s.appendChild(el('text',{x:x(r[1])+14,y:cy+5,class:'nodata'},r[5]));
+    });
+    document.getElementById('world').appendChild(s);
+  })();
+
+  /* Schools vs students (UNESCO, TIMSS 2015) */
+  (function(){
+    var d=[['Iran',66,84],['Rússia',8,1]],W=720,H=170,L=90,R=60,s=svg(W,H),x=function(v){return L+v/100*(W-L-R);};
+    [0,25,50,75,100].forEach(function(v){s.appendChild(el('line',{x1:x(v),x2:x(v),y1:10,y2:H-24,class:'ax'}));s.appendChild(el('text',{x:x(v),y:H-6,'text-anchor':'middle',class:'tick'},v+'%'));});
+    d.forEach(function(r,i){
+      var y0=18+i*72;
+      s.appendChild(el('text',{x:L-12,y:y0+30,'text-anchor':'end',class:'lab'},r[0]));
+      s.appendChild(el('rect',{x:L,y:y0,width:x(r[1])-L,height:22,class:'bk','data-tip':r[0]+': el '+r[1]+'% de les escoles de primària són d’un sol sexe'}));
+      s.appendChild(el('text',{x:x(r[1])+8,y:y0+16,class:'lab'},r[1]+'% de les escoles'));
+      s.appendChild(el('rect',{x:L,y:y0+26,width:Math.max(2,x(r[2])-L),height:22,class:'bk ink','data-tip':r[0]+': hi estudia el '+r[2]+'% de l’alumnat de 4t'}));
+      s.appendChild(el('text',{x:x(r[2])+8,y:y0+42,class:'lab es'},r[2]+'% de l’alumnat'));
+    });
+    document.getElementById('schools').appendChild(s);
+  })();
+
+  /* Spain concertats */
+  (function(){
+    var d=[['2018-19',87],['2022-23',51],['Inicis 2024',48]],W=720,H=190,L=110,R=40,s=svg(W,H),x=function(v){return L+v/100*(W-L-R);};
+    d.forEach(function(r,i){
+      var y0=12+i*40;
+      s.appendChild(el('text',{x:L-12,y:y0+18,'text-anchor':'end',class:'lab'},r[0]));
+      s.appendChild(el('rect',{x:L,y:y0,width:x(r[1])-L,height:26,class:'bk red','data-tip':r[0]+': '+r[1]+' centres concertats separaven per sexe'}));
+      s.appendChild(el('text',{x:x(r[1])+8,y:y0+18,class:'lab'},r[1]+' concertats'));
+    });
+    var y0=12+3*40;
+    s.appendChild(el('text',{x:L-12,y:y0+18,'text-anchor':'end',class:'lab'},'Privats'));
+    s.appendChild(el('rect',{x:L+1,y:y0+1,width:x(60)-L-2,height:24,class:'unk'}));
+    s.appendChild(el('text',{x:L+14,y:y0+18,class:'nodata'},'sense comptar: no hi ha cap registre'));
+    document.getElementById('spain').appendChild(s);
+  })();
+
+  /* Highlight select */
+  var hlSel=document.getElementById('hl');
+  eu.map(function(d){return d[0];}).filter(function(n){return n!=='Espanya';}).sort(function(a,b){return a.localeCompare(b,'ca');}).forEach(function(n){var o=document.createElement('option');o.value=n;o.textContent=n;hlSel.appendChild(o);});
+  hlSel.addEventListener('change',function(){hl=hlSel.value;show(curView);});
+
+  /* Tooltips (hover, focus and tap) */
+  var tip=document.createElement('div');tip.className='tip';tip.setAttribute('role','status');document.body.appendChild(tip);
+  var tipFor=null;
+  function placeTip(x,y){var r=tip.getBoundingClientRect(),vw=document.documentElement.clientWidth;var left=Math.min(Math.max(8,x+14),vw-r.width-8);var top=y-r.height-14;if(top<70)top=y+18;tip.style.left=left+'px';tip.style.top=top+'px';}
+  function showTip(t,x,y){tipFor=t;tip.textContent=t.getAttribute('data-tip');tip.classList.add('on');placeTip(x,y);}
+  function hideTip(){tipFor=null;tip.classList.remove('on');}
+  document.addEventListener('pointermove',function(e){if(e.pointerType==='touch')return;var t=e.target.closest&&e.target.closest('[data-tip]');if(t)showTip(t,e.clientX,e.clientY);else if(tipFor)hideTip();});
+  document.addEventListener('pointerdown',function(e){if(e.pointerType!=='touch')return;var t=e.target.closest&&e.target.closest('[data-tip]');if(t){showTip(t,e.clientX,e.clientY);}else hideTip();});
+  window.addEventListener('scroll',function(){if(tipFor)hideTip();},{passive:true});
+
+  /* Guess 1: total hours */
+  var REAL=8949,gh=document.getElementById('gh'),ghv=document.getElementById('ghv');
+  gh.addEventListener('input',function(){ghv.textContent=fmt.format(+gh.value)+' h';});
+  function revealHours(guess){
+    document.getElementById('gh-btns').hidden=true;gh.disabled=true;
+    fillGrid();
+    document.getElementById('hero-legend').hidden=false;document.getElementById('hero-note2').hidden=false;document.getElementById('hero-note').classList.remove('pre');
+    var res=document.getElementById('gh-res'),html='<p class="gres">La resposta: <span class="big">8.949 hores</span>';
+    if(guess!=null){
+      var d=guess-REAL,ad=Math.abs(d),pct=Math.round(ad/REAL*100);
+      html+=ad<=600?'Gairebé exacte! T’has desviat només '+fmt.format(ad)+' hores.':(d<0?'T’has quedat curt per '+fmt.format(ad)+' hores (un '+pct+'% menys).':'T’has passat per '+fmt.format(ad)+' hores (un '+pct+'% més).');
+      var mx=Math.max(guess,REAL);
+      html+='</p><div class="cmp"><span>La teva aposta</span><span class="tr"><span style="width:'+(guess/mx*100)+'%;background:var(--red)"></span></span><span class="v">'+fmt.format(guess)+' h</span><span>La realitat</span><span class="tr"><span style="width:'+(REAL/mx*100)+'%;background:var(--ink)"></span></span><span class="v">'+fmt.format(REAL)+' h</span></div>';
+      mine.hores=guess;save();
+    } else html+='</p>';
+    res.innerHTML=html;res.hidden=false;renderClass();
+  }
+  document.getElementById('gh-ok').addEventListener('click',function(){revealHours(+gh.value);});
+  document.getElementById('gh-skip').addEventListener('click',function(){revealHours(null);});
+
+  /* Guess 2: Spain's rank */
+  var chips=document.getElementById('chips');
+  for(var c=1;c<=20;c++){var b=document.createElement('button');b.type='button';b.textContent=c;b.dataset.n=c;b.setAttribute('aria-pressed','false');b.setAttribute('aria-label','Lloc '+c);chips.appendChild(b);}
+  function revealRank(n){
+    Array.prototype.forEach.call(chips.children,function(b){b.disabled=true;var k=+b.dataset.n;b.setAttribute('aria-pressed',k===n?'true':'false');if(k===2)b.classList.add('ok');});
+    document.getElementById('gl-btns').hidden=true;
+    var res=document.getElementById('gl-res'),txt='<p class="gres">Espanya és la <b>2a de 20</b>, només per darrere de Dinamarca. ';
+    if(n!=null){txt+=n===2?'Ho has encertat!':(n<=4?'T’hi has acostat molt.':'Potser no t’ho esperaves.');mine.lloc=n;save();}
+    res.innerHTML=txt+'</p>';res.hidden=false;
+    document.getElementById('eu-content').hidden=false;show('s');renderClass();
+  }
+  chips.addEventListener('click',function(e){var b=e.target.closest('button');if(b&&!b.disabled)revealRank(+b.dataset.n);});
+  document.getElementById('gl-skip').addEventListener('click',function(){revealRank(null);});
+
+  /* Class results (shared, anonymous) */
+  var db=null,uid=null,canWrite=false,isOwner=false,classDocs=[],saved={},saveChain=Promise.resolve();
+  function median(a){var b=a.slice().sort(function(x,y){return x-y;}),m=Math.floor(b.length/2);return b.length%2?b[m]:Math.round((b[m-1]+b[m])/2);}
+  function save(){
+    if(!db||!canWrite||!uid)return;
+    var body=Object.assign({},saved,mine);saved=body;
+    saveChain=saveChain.then(function(){return db.doc('guesses/'+uid).set(body);}).catch(function(e){if(e&&(e.code==='invalid_argument'||e.code==='not_granted')){canWrite=false;renderClass();}});
+  }
+  function note(){return '<p class="note">Respostes anònimes: només es guarden les xifres, i les veu tothom qui obre aquesta pàgina.'+(canWrite?'':' La teva resposta no s’ha afegit perquè no tens permís per escriure-hi.')+'</p>';}
+  function renderClass(){
+    if(!db)return;
+    var all=classDocs.map(function(d){return d.data;});
+    var bh=document.getElementById('cls-hores');
+    if(bh&&mine.hores!=null){
+      var vals=all.map(function(d){return d.hores;}).filter(function(v){return typeof v==='number';});
+      if(vals.length){
+        var W=600,H=70,L=10,Rr=10,x=function(v){return L+(Math.min(v,20000)-1000)/19000*(W-L-Rr);};
+        var dots=vals.map(function(v,i){return '<circle cx="'+x(v)+'" cy="'+(26+(i%5)*5)+'" r="5" class="other"/>';}).join('');
+        bh.innerHTML='<h4>La classe</h4><p>'+vals.length+' '+(vals.length===1?'resposta':'respostes')+'. L’aposta mitjana (mediana) és de <b>'+fmt.format(median(vals))+' hores</b>.</p>'+
+          '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Apostes de la classe entre 1.000 i 20.000 hores, amb la xifra real a 8.949">'+
+          '<line x1="'+L+'" x2="'+(W-Rr)+'" y1="58" y2="58" class="ax"/>'+dots+
+          '<line x1="'+x(REAL)+'" x2="'+x(REAL)+'" y1="12" y2="58" class="real"/><text x="'+x(REAL)+'" y="9" text-anchor="middle" class="tick">real</text>'+
+          '<circle cx="'+x(mine.hores)+'" cy="58" r="6" class="mine"/>'+
+          '<text x="'+L+'" y="70" class="tick">1.000</text><text x="'+(W-Rr)+'" y="70" text-anchor="end" class="tick">20.000</text></svg>'+
+          note()+(isOwner?'<button type="button" class="link" id="cls-reset">Esborra totes les respostes de la classe</button>':'');
+        bh.hidden=false;
+        var rb=document.getElementById('cls-reset');if(rb)rb.addEventListener('click',resetClass);
+      }
+    }
+    var bl=document.getElementById('cls-lloc');
+    if(bl&&mine.lloc!=null){
+      var lv=all.map(function(d){return d.lloc;}).filter(function(v){return typeof v==='number';});
+      if(lv.length){
+        var bins=[['Lloc 1 a 5',1,5],['Lloc 6 a 10',6,10],['Lloc 11 a 15',11,15],['Lloc 16 a 20',16,20]],html='<h4>La classe</h4><p>'+lv.length+' '+(lv.length===1?'resposta':'respostes')+'. Han encertat el 2n lloc '+lv.filter(function(v){return v===2;}).length+'.</p><div class="mini">';
+        bins.forEach(function(bn){var n=lv.filter(function(v){return v>=bn[1]&&v<=bn[2];}).length,me=mine.lloc>=bn[1]&&mine.lloc<=bn[2];html+='<span'+(me?' class="me"':'')+'>'+bn[0]+'</span><span class="tr'+'"'+(me?' style="outline:0"':'')+'><span style="width:'+(n/lv.length*100)+'%;'+(me?'background:var(--ink)':'')+'"></span></span><span class="v">'+Math.round(n/lv.length*100)+'%</span>';});
+        bl.innerHTML=html+'</div>'+note();bl.hidden=false;
+      }
+    }
+    var bp=document.getElementById('cls-pisa');
+    if(bp&&mine.pisa!=null){
+      var pv=all.map(function(d){return d.pisa;}).filter(function(v){return v==='si'||v==='no'||v==='nose';});
+      if(pv.length){
+        var html2='<h4>La classe</h4><p>'+pv.length+' '+(pv.length===1?'resposta':'respostes')+'.</p><div class="mini">';
+        [['si','Sí'],['no','No'],['nose','No ho sé']].forEach(function(o){var n=pv.filter(function(v){return v===o[0];}).length,me=mine.pisa===o[0];html2+='<span>'+o[1]+'</span><span class="tr"><span style="width:'+(n/pv.length*100)+'%;'+(me?'background:var(--ink)':'')+'"></span></span><span class="v">'+Math.round(n/pv.length*100)+'%</span>';});
+        bp.innerHTML=html2+'</div>'+note();bp.hidden=false;
+      }
+    }
+  }
+  function resetClass(){
+    if(!confirm('Segur que vols esborrar totes les respostes de la classe? No es pot desfer.'))return;
+    var ids=classDocs.map(function(d){return d.id;}),chain=Promise.resolve();
+    ids.forEach(function(id){chain=chain.then(function(){return db.doc('guesses/'+id).delete();});});
+    chain.then(function(){saved={};}).catch(function(){alert('No s’han pogut esborrar totes les respostes.');});
+  }
+  (async function(){
+    try{
+      if(!window.claude||!window.claude.use)return;
+      var res=await Promise.all([window.claude.use('db'),window.claude.use('user')]),d=res[0],u=res[1];
+      if(!d||!u)return;
+      uid=await u.id();if(!uid)return;
+      var cw=await u.can('data.write');canWrite=cw!==false;
+      isOwner=await u.isOwner();
+      db=d;
+      try{var own=await db.doc('guesses/'+uid).get();if(own.exists)saved=Object.assign({},own.data());}catch(e){}
+      db.collection('guesses').limit(1000).onSnapshot(function(snap){classDocs=snap.docs.map(function(x){return {id:x.id,data:x.data()};});renderClass();},function(){});
+      if(Object.keys(mine).length)save();
+      renderClass();
+    }catch(e){}
+  })();
+
+  /* Teachers (TALIS 2024) */
+  var st=[['Mestres de primària, Espanya',[49,13,6,5,27]],['Professorat de secundària, mitjana OCDE',[43,14,9,6,28]],['Professorat de secundària, Espanya',[42,15,12,5,27]]];
+  var lbl=['Fer classe','Preparar classes','Corregir i avaluar','Feina administrativa','Altres tasques'],stack=document.getElementById('stack');
+  st.forEach(function(r){
+    var sum=r[1].reduce(function(a,b){return a+b;},0),li=document.createElement('li');
+    var html='<div class="lab">'+r[0]+'</div><div class="bar" role="img" aria-label="'+r[0]+': '+r[1].map(function(v,i){return lbl[i]+' '+v+'%';}).join(', ')+'">';
+    r[1].forEach(function(v,i){html+='<span class="s'+(i+1)+'" style="width:'+(v/sum*100)+'%" title="'+lbl[i]+': '+v+'%">'+(v>=5?v+'%':'')+'</span>';});
+    li.innerHTML=html+'</div>';stack.appendChild(li);
+  });
+})();
+</script>
+</body>
+</html>
